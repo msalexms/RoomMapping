@@ -1,28 +1,35 @@
 #include "HCSR04.h"
-#include <Arduino.h>  // Necesario para usar funciones de Arduino como digitalWrite y pulseIn
+#include <Arduino.h>  // Necessary for using Arduino functions like digitalWrite and pulseIn
 
-// Constructor de la clase HCSR04
+/**
+ * @brief Constructor for the HCSR04 class.
+ * @param trigPin GPIO pin connected to the TRIG pin of the sensor.
+ * @param echoPin GPIO pin connected to the ECHO pin of the sensor.
+ */
 HCSR04::HCSR04(int trigPin, int echoPin) {
     _trigPin = trigPin;
     _echoPin = echoPin;
-    pinMode(_trigPin, OUTPUT);  // Configura el pin TRIG como salida
-    pinMode(_echoPin, INPUT);   // Configura el pin ECHO como entrada
+    pinMode(_trigPin, OUTPUT);  // Set the TRIG pin as output
+    pinMode(_echoPin, INPUT);   // Set the ECHO pin as input
 }
 
-// Método para obtener la distancia
+/**
+ * @brief Get the distance measured by the sensor.
+ * @return Distance in meters.
+ */
 float HCSR04::getDistance() {
-    // Enviar el pulso en TRIG
+    // Send a pulse on TRIG
     digitalWrite(_trigPin, LOW);
     delayMicroseconds(2);
     digitalWrite(_trigPin, HIGH);
     delayMicroseconds(10);
     digitalWrite(_trigPin, LOW);
 
-    // Medir el tiempo del pulso en ECHO
+    // Measure the duration of the pulse on ECHO
     long duration = pulseIn(_echoPin, HIGH);
 
-    // Calcular la distancia en metros
-    float distance = (duration / 2.0) * 0.000344;  // Formula de distancia (tiempo * velocidad del sonido / 2)
+    // Calculate the distance in meters
+    float distance = (duration / 2.0) * 0.000344;  // Distance formula (time * speed of sound / 2)
 
-    return distance;  // Devuelve la distancia
+    return distance;  // Return the distance
 }

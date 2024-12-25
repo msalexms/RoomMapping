@@ -8,7 +8,7 @@ const int motorPin2 = 0;
 const int motorPin3 = 5;
 const int motorPin4 = 15;
 
-Motor28BYJ48 stepper(motorPin1, motorPin2, motorPin3, motorPin4);
+Motor28BYJ48 stepper(motorPin1, motorPin2, motorPin3, motorPin4, 1);
 
 const int trigPin = 32;
 const int echoPin = 33;
@@ -33,7 +33,6 @@ void loop() {
     delay(1000);
     stepper.moveForward(2048);
     
-
 
     delay(1000);
 
